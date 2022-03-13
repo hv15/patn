@@ -1,0 +1,57 @@
+void  _MAIN::SACf__MAIN___cuknl_2824_CUDA__i__i__i__i__id_20__i( int SACp_emal_2385__flat_103 { ,NN } , int_dev[20] SACp_emal_2377__iwlmem_2363_dev { ,NN } , int SACp_ub_0 { ,NN } , int SACp_lb_0 { ,NN } , int{2} SACp_flat_107 { ,NN } , int SACp_emal_2384__flat_107 { ,NN } )
+/*
+ *  SACf__MAIN___cuknl_2824_CUDA__i__i__i__i__id_20__i ::  ---
+ */  /* <- in inout in in in in */
+/*
+ *  SACf__MAIN___cuknl_2824_CUDA__i__i__i__i__id_20__i ::  ---
+ */
+{
+  int SACp_emal_2378__flat_114 { , NN, USAGE: 1 } ;
+  int SACp_emal_2379__pinl_195__flat_3 { , NN, USAGE: 2 } ;
+  int SACp_emal_2380__pinl_194__flat_3 { , NN, USAGE: 2 } ;
+  int SACl_c { , NN, USAGE: 1 } ;
+  int SACl_b { , NN, USAGE: 3 } ;
+  int[1] SACl_jv { , NN } ;  /* CUDA local */
+  int SACp_eat_119 { , NN, USAGE: 1 } ;
+  int SACp_wlidx_2253_a { , NN, USAGE: 1 } ;
+  int SACp_eat_118 { , NN, USAGE: 1 } ;
+  int[1] SACl_iv { , NN } ;  /* CUDA local */
+
+  SACp_eat_118 = _cuda_wlids_( 0, 1, SACl_iv);
+  SACp_wlidx_2253_a = _idxs2offset_( [ 20 ], SACp_eat_118);
+  _inc_rc_( SACp_emal_2385__flat_103, 1);
+  _inc_rc_( SACp_emal_2384__flat_107, 1);
+  SACp_eat_119 = _alloc_( 1, 0, [:int]);
+  SACl_b, SACl_c = with2 (SACl_jv=[SACp_eat_119])
+      /********** operators: **********/
+      op_0 =
+        {
+          SACl_b, SACl_c = _accu_( SACl_jv, SACp_flat_107, SACp_flat_107);
+          SACl_b, SACl_c = _accu_( SACl_jv, SACp_flat_107, SACp_flat_107);
+          SACp_emal_2380__pinl_194__flat_3 = _alloc_( 1, 0, [:int]);
+          SACp_emal_2380__pinl_194__flat_3 = _add_SxS_( SACl_b, 1);
+          _dec_rc_( SACl_b, 1);
+          SACp_emal_2379__pinl_195__flat_3 = _alloc_( 1, 0, [:int]);
+          SACp_emal_2379__pinl_195__flat_3 = _add_SxS_( SACl_c, 2);
+          _dec_rc_( SACl_c, 1);
+          SACl_b = SACp_emal_2380__pinl_194__flat_3;
+          SACl_c = SACp_emal_2379__pinl_195__flat_3;
+        } : SACl_b, SACl_c ;
+      /********** (var.) segment 0: **********
+       * index domain: [ SACp_eat_118 ] -> [ 21 ]
+       */
+      (SACp_eat_118 => 21), step0[0] 1
+        (0 --> 1): op_0
+      /********** conexpr: **********/
+      fold( _MAIN::SACf__MAIN___PL__i__i(), SACp_emal_2385__flat_103),
+      fold( _MAIN::SACf__MAIN___PL__i__i(), SACp_emal_2384__flat_107);
+  _free_( SACp_eat_119);
+  SACp_emal_2378__flat_114 = _add_SxS_( SACl_b, SACl_c);
+  _dec_rc_( SACl_c, 1);
+  _dec_rc_( SACl_b, 1);
+  SACp_emal_2377__iwlmem_2363_dev = _cuda_wl_assign_( SACp_emal_2378__flat_114, SACp_emal_2377__iwlmem_2363_dev, SACp_wlidx_2253_a);
+  _free_( SACp_emal_2378__flat_114);
+  _free_( SACp_wlidx_2253_a);
+  _free_( SACp_eat_118);
+  return( SACp_emal_2377__iwlmem_2363_dev);
+}

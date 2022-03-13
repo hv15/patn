@@ -5,92 +5,108 @@ applies these to some input (via stdin or file), and resolves
 each condition for its pattern.
 
 On ever pattern we store the match, which can be accessed in the next
-sequence pattern-cond.
+sequence of pattern-conds.
 
 If a pattern fails, the script aborts.
 
 If a condition fails, the script aborts.
 
 Support condition statements:
-    -> M[n] ==/!= "string"
+    -> M[n] ==/!= 'string'
+      compare current match to some string
     -> M[n] ==/!= M[n]
-    -> P[n]
-      When performing a 'pass', we can select into that previously matched
-      vector
+      compare current matches
+    -> M[n] ==/!= P[n]
+      compare the current match with a previous match
     -> >> 'OR' skip
-      perform only the pattern match
+      perform only the pattern match (and use its result
+      in the next pattern-cond sequence)
 """
 import sys
 import re
 import enum
 import argparse
 import copy
-import pprint
 import tempfile
+from typing import Type, Match, IO, TextIO, Optional, Union, List, Tuple, Sequence
 
 __version__ = "0.1"
 
-IdType = enum.Enum ('IdType', 'Match PMatch')
-CondType = enum.Enum ('CondType', 'Eq Ne Skip')
+IndexType = enum.Enum ('IndexType', 'Match PMatch')
+CondType = enum.Enum ('CondType', 'Eq Ne Skip Err')
 MatchType = enum.Enum ('MatchType', 'Any All Num NA')
 
-class Id ():
-    def __init__ (self, ttype, index, optype = MatchType.NA, opidx = -1):
+class String ():
+    def __init__ (self, value: str) -> None:
+        self._value = value
+
+    def __str__ (self) -> str:
+        return f"String(value=\"{self._value}\")"
+
+    def __repr__ (self) -> str:
+        return self.__str__ ()
+
+    @property
+    def value (self) -> str:
+        return self._value
+
+class Index ():
+    def __init__ (self, ttype: IndexType, index: int, optype: MatchType = MatchType.NA, opidx: int = -1) -> None:
         self._ttype = ttype
         self._index = index
         self._opidx = opidx
         self._optype = optype
 
-    def __str__ (self):
+    def __str__ (self) -> str:
         if self._optype != MatchType.NA:
-            return f"Id(type={self._ttype}, index={self._index}, optype={self._optype}, opidx={self._opidx})"
+            return f"Index(type={self._ttype}, index={self._index}, optype={self._optype}, opidx={self._opidx})"
         else:
-            return f"Id(type={self._ttype}, index={self._index})"
+            return f"Index(type={self._ttype}, index={self._index})"
 
-    def __repr__ (self):
+    def __repr__ (self) -> str:
         return self.__str__ ()
 
     @property
-    def type (self):
+    def type (self) -> IndexType:
         return self._ttype
 
     @property
-    def index (self):
+    def index (self) -> int:
         return self._index
 
     @property
-    def optype (self):
+    def optype (self) -> MatchType:
         return self._optype
 
     @property
-    def opidx (self):
+    def opidx (self) -> int:
         return self._opidx
 
 class Cond ():
-    def __init__ (self, ctype, lhs, rhs):
+    def __init__ (self, ctype: CondType, lhs: Optional[Index | String], rhs: Optional[Index | String]) -> None:
         self._ctype = ctype
         self._lhs = lhs
         self._rhs = rhs
 
-    def __str__ (self):
+    def __str__ (self) -> str:
         if self._ctype != CondType.Skip:
             return f"Cond (type={self._ctype}, lhs={self._lhs}, rhs={self._rhs})"
         else:
             return f"Cond (type={self._ctype})"
 
-    def __repr__ (self):
+    def __repr__ (self) -> str:
         return self.__str__ ()
 
     @property
-    def type (self):
+    def type (self) -> CondType:
         return self._ctype
 
     @property
-    def lhs (self):
+    def lhs (self) -> Optional[Index | String]:
         return self._lhs
 
     @property
-    def rhs (self):
+    def rhs (self) -> Optional[Index | String]:
         return self._rhs
 
 class PtnSeq (argparse._AppendAction):
@@ -105,7 +121,7 @@ def die (msg):
     print (msg, file=sys.stderr)
     sys.exit (3)
 
-def fatal (msg):
+def fatal (msg) -> None:
     die (f"fatal: {msg}")
 
 def error (msg):
@@ -117,14 +133,21 @@ def warning (msg):
 def info (msg):
     print (f"info: {msg}")
 
-def handle_val (token):
+def handle_val (token: str) -> Index | String:
     if token.startswith ("M"):
-        return Id (IdType.Match, int (token.strip ("M\[\]")))
+        return Index (IndexType.Match, int (token.strip ("M\[\]")))
     elif token.startswith ("P"):
-        pidx = re.search (r'^P\[(\d+)\]', token)
+        pidx: int = -1
+        mpidx = re.search (r'^P\[(\d+)\]', token)
+        if isinstance (mpidx, Match):
+            pidx = int (mpidx.group (1))
+        else:
+            fatal ("Regex for P index failed!")
         pmat = re.search (r'\:(\d+|\&\&|\|\|)$', token)
-        idx = -1
-        pmattype = MatchType.NA
+
+        idx: int = -1
+        pmattype: MatchType = MatchType.NA
+
         if pmat and pmat.group (1) == '&&':
             pmattype = MatchType.All
         elif pmat and pmat.group (1) == '||':
@@ -135,14 +158,14 @@ def handle_val (token):
         else:
             pmattype = MatchType.Any
 
-        return Id (IdType.PMatch, int (pidx.group (1)), pmattype, idx)
+        return Index (IndexType.PMatch, pidx, pmattype, idx)
     else:
-        return token.strip ("\"'")
+        return String (token.strip ("\"'"))
 
-def handle_cond (lhs, opt, rhs):
+def handle_cond (lhs: str, opt: str, rhs: str) -> Cond:
     nlhs = handle_val (lhs)
     nrhs = handle_val (rhs)
-    ctype = None
+    ctype: CondType = CondType.Err
     if opt == "==":
         ctype = CondType.Eq
     elif opt == "!=":
@@ -152,7 +175,7 @@ def handle_cond (lhs, opt, rhs):
 
     return Cond (ctype, nlhs, nrhs)
 
-def parse_cond (cond, c):
+def parse_cond (cond: str, c: int) -> Cond: # type: ignore[return]
     # FIXME 'string opt string' is possible
     rstatm = re.compile ('^\s*(?:skip|(?:[PM]\[\d+\](?:\:\d+|\:&&|\:\|\|){0,1}|["\']\w*["\'])\s*[\!=->][=>]\s*(?:[PM]\[\d+\](?:\:\d+|\:&&|\:\|\|){0,1}|["\']\w*["\']))\s*$')
     rtokens = re.compile ('[PM]\[\d+\](?:\:\d+|\:&&|\:\|\|){0,1}|[\!=]=|>>|skip|["\']\w*["\']')
@@ -172,28 +195,34 @@ def parse_cond (cond, c):
     else:
         fatal (f"Condition \"{cond}\" is invalid!")
 
-def eval_id (ids, smatch, prev):
-    if isinstance (ids, Id):
+def eval_id (ids: Index | String, smatch: Sequence[str], prev: list) -> tuple[list, MatchType, int]: # type: ignore[return]
+    if isinstance (ids, Index):
         if ids.optype == MatchType.NA:
             return ([smatch[ids.index]], MatchType.NA, 0)
         else:
             # XXX is it always the case that a match only returns 1 tuple or 1 string?
-            sp = [i[0][ids.index] for i in prev]
-            return (sp, ids.optype, ids.opidx)
-    elif isinstance (ids, str):
-        return ([ids], MatchType.NA, 0)
+            try:
+                sp = [i[0][ids.index] for i in prev]
+                return (sp, ids.optype, ids.opidx)
+            except IndexError as e:
+                fatal (f"for P[{ids.index}] -> {e}")
+    elif isinstance (ids, String):
+        return ([ids.value], MatchType.NA, 0)
 
-def eval_cond_expr ():
-    pass
-
-def eval_cond (cond, result, prev):
+def eval_cond (cond: Cond, result: list, prev: list) -> bool:
     if cond.type != CondType.Skip:
         for smatch in result:
             # the smatch may be a tuple (when using multigroup regexes)
             # **or** a single string value
             wrp = smatch if isinstance (smatch, tuple) else [smatch]
-            lhs = eval_id (cond.lhs, wrp, prev)
-            rhs = eval_id (cond.rhs, wrp, prev)
+            if isinstance (cond.lhs, Index | String):
+                lhs = eval_id (cond.lhs, wrp, prev)
+            else:
+                fatal ("No LHS of conditional!")
+            if isinstance (cond.rhs, Index | String):
+                rhs = eval_id (cond.rhs, wrp, prev)
+            else:
+                fatal ("No RHS of conditional!")
 
             res = False
             tmp = []
@@ -221,47 +250,53 @@ def eval_cond (cond, result, prev):
                 res = tmp.count (True) == s
             if not res:
                 if cond.type == CondType.Eq:
-                    error (f"Condition \"{lhs} == {rhs}\" of \"{smatch}\" failed!")
+                    error (f"Condition \"{lhs[0]} == {rhs[0]}\" of \"{smatch}\" failed!")
                 elif cond.type == CondType.Ne:
-                    error (f"Condition \"{lhs} != {rhs}\" of \"{smatch}\" failed!")
+                    error (f"Condition \"{lhs[0]} != {rhs[0]}\" of \"{smatch}\" failed!")
             return res
 
     # only on 'skip'
     return True
 
+def copy_to_tempfile (file: TextIO) -> IO[str]:
+    tp = tempfile.TemporaryFile ('w+')
+    for l in file:
+        tp.write (l)
+    tp.seek (0)
+    return tp
+
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser (description="For a given input, "
+    parser = argparse.ArgumentParser (prog='patn', description="For a given input, "
                "sequencially find the passed in patterns and check "
                "against each condition that the pattern hold.")
+    parser.add_argument('--version', action='version', version=f'%(prog)s {__version__}')
     parser.add_argument ('-e', required=True, nargs=2, action=PtnSeq, metavar=("PATTERN", "COND"))
     parser.add_argument('file', nargs='?', type=argparse.FileType('r'), default=sys.stdin)
 
     args = parser.parse_args ()
 
     # parse all conditionals
-    patcons = []
-    for c, pc in enumerate (args.e, start=1):
-        s = (pc['pattern'], parse_cond (pc['cond'], c))
+    patcons: List[Tuple[str, Cond]] = []
+    for count, pc in enumerate (args.e, start=1):
+        s: Tuple[str, Cond] = (pc['pattern'], parse_cond (pc['cond'], count))
         patcons.append (s)
 
     # copy content to temp file
-    tp = tempfile.TemporaryFile ('w+')
-    for l in args.file:
-        tp.write (l)
-    tp.seek (0)
+    tp = copy_to_tempfile (args.file)
     args.file.close ()
 
-    prev = []
+    prev: List[list] = []
     for p, c in patcons:
-        found = False
-        failed = False
-        matches = []
+        found: bool = False
+        failed: bool = False
+        matches: List[list] = []
         reg = re.compile (p)
         for line in tp:
             res = re.findall (reg, line)
             if res:
                 found = True
                 matches.append (res)
+                print (c)
                 if not eval_cond (c, res, prev):
                     error (f"Condition failed for pattern: \"{p}\"!")
                     failed = True
