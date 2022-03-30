@@ -1,0 +1,125 @@
+
+/*-----------------------------------------------*/
+
+/*
+ *  SAC-Program test-fold-accu-mmv.sac :
+ */
+
+
+/*
+ *  prototypes for locals (FUNDEFS)
+ */
+
+
+
+/*
+ *  function definitions (FUNDEFS)
+ */
+
+
+
+/****************************************************************************
+ * Wrapper function:
+ * _MAIN::main(...) [ wrapper ]
+ ****************************************************************************/
+int _MAIN::main()
+/*
+ *  main ::  ---
+ */
+{ 
+  int _cwc_111 { , NN } ; 
+
+  _cwc_111 = _MAIN::main() ; 
+  return( _cwc_111); 
+}
+
+
+
+/****************************************************************************
+ * _MAIN::+(...) [ body ]
+ ****************************************************************************/
+inline
+int _MAIN::+( int a { ,NN } , int b { ,NN } )
+/*
+ *  + ::  ---
+ */
+{ 
+  int _emal_268__flat_2 { , NN } ; 
+  int _flat_2 { , NN } ; 
+
+  _emal_268__flat_2 = _alloc_( 1, 0, [:int]); 
+  _emal_268__flat_2 = _add_SxS_( b, a); 
+  _dec_rc_( a, 1); 
+  _dec_rc_( b, 1); 
+  return( _emal_268__flat_2); 
+}
+
+
+
+/****************************************************************************
+ * _MAIN::main(...) [ body ]
+ ****************************************************************************/
+int _MAIN::main()
+/*
+ *  main ::  ---
+ */
+{ 
+  int _emal_273__flat_98 { , NN } ; 
+  int _emal_272__flat_97 { , NN } ; 
+  int _emal_271__pinl_241__flat_4 { , NN } ; 
+  int _emal_270__pinl_242__flat_2 { , NN } ; 
+  int _ufiv_267__pinl_242__flat_2 { , NN } ; 
+  int _ufiv_266__pinl_243__flat_2 { , NN } ; 
+  int _pinl_241__flat_4 { , NN } ; 
+  int _pinl_242__flat_2 { , NN } ; 
+  int _pinl_243__flat_2 { , NN } ; 
+  int _ea_217_c { , NN } ; 
+  int _ea_215_b { , NN } ; 
+  int _eat_109 { , NN } ; 
+  int c { , NN } ; 
+  int b { , NN } ; 
+  int[1] iv { , NN } ; 
+  int{42} _flat_97 { , NN } ; 
+  int{13} _flat_98 { , NN } ; 
+
+  _emal_273__flat_98 = _alloc_( 1, 0, [:int]); 
+  _emal_273__flat_98 = 13; 
+  _emal_272__flat_97 = _alloc_( 1, 0, [:int]); 
+  _emal_272__flat_97 = 42; 
+  _eat_109 = _alloc_( 1, 0, [:int]); 
+  b, c = with2 (iv=[_eat_109])
+      /********** operators: **********/
+      op_0 =
+        { 
+          b, c = _accu_( iv, _emal_272__flat_97, _emal_273__flat_98); 
+          _emal_271__pinl_241__flat_4 = _alloc_( 1, 0, [:int]); 
+          _emal_271__pinl_241__flat_4 = _mul_SxS_( _eat_109, 2); 
+          _emal_270__pinl_242__flat_2 = _alloc_( 1, 0, [:int]); 
+          _emal_270__pinl_242__flat_2 = _add_SxS_( b, _eat_109); 
+          _dec_rc_( b, 1); 
+          _emal_271__pinl_241__flat_4 = _add_SxS_( c, _emal_271__pinl_241__flat_4); 
+          _dec_rc_( c, 1); 
+          _ufiv_267__pinl_242__flat_2 = _unshare_( _emal_270__pinl_242__flat_2, iv); 
+          _ufiv_266__pinl_243__flat_2 = _unshare_( _emal_271__pinl_241__flat_4, iv); 
+          b = _ufiv_266__pinl_243__flat_2; 
+          c = _ufiv_267__pinl_242__flat_2; 
+        } : b, c ; 
+      /********** segment 0: **********
+       * index domain: [ 1 ] -> [ 66 ]
+       * bv: [ 1 ], [ 1 ], [ 1 ]
+       * ubv: [ 1 ]
+       * sv: [ 1 ]
+       * homsv: [ 1 ]
+       */
+      (1 -> 66), step0[0] 1
+        (0 --> 1): op_0
+      /********** conexpr: **********/
+      fold( _MAIN::+(), _emal_272__flat_97),
+      fold( _MAIN::+(), _emal_273__flat_98); 
+  _dec_rc_( c, 1); 
+  _free_( _eat_109); 
+  return( b); 
+}
+
+
+/*-----------------------------------------------*/

@@ -1,0 +1,1187 @@
+
+/*-----------------------------------------------*/
+
+/*
+ *  SAC-Program test-fold-accu-mmv.sac :
+ */
+
+
+/*
+ *  prototypes for locals (FUNDEFS)
+ */
+
+
+
+/*
+ *  function definitions (FUNDEFS)
+ */
+
+
+
+/****************************************************************************
+ * Cond function:
+ * _MAIN::_dup_214_sel__Cond_16(...) [ body ]
+ ****************************************************************************/
+int[*] _MAIN::_dup_214_sel__Cond_16( bool _cwc_183 { ,NN } , int[*] array { ,NN } , int[*] idx { ,NN } )
+/*
+ *  _dup_214_sel__Cond_16 ::  ---
+ */
+{ 
+  int[*] _cwc_163__SSA1_2 { , NN } ; 
+  int[*] _cwc_163__SSA1_1 { , NN } ; 
+  int[.] _cwc_170 { , NN } ; 
+  bool{1} _cwc_176 { , NN } ; 
+  int[1]{0} _cwc_177 { , NN } ; 
+  int _cwc_178 { , NN } ; 
+  int{1} _cwc_179 { , NN } ; 
+  bool _cwc_180 { , NN } ; 
+  bool _cwc_181 { , NN } ; 
+  int[*] _cwc_163 { , NN } ; 
+
+  if (_cwc_183) 
+  { 
+    _cwc_170 = _shape_A_( idx); 
+    _cwc_176 = true; 
+    _cwc_179 = 1; 
+    _cwc_177 = [ 0 ]; 
+    _cwc_178 = _sel_VxA_( _cwc_177, _cwc_170); 
+    _cwc_180 = _eq_SxS_( _cwc_178, _cwc_179); 
+    _cwc_181 = _and_SxS_( _cwc_180, _cwc_176); 
+    _cwc_163 = _MAIN::_dup_213_sel__Cond_15( _cwc_181, array, idx) ; 
+  }
+  else
+  { 
+    _cwc_163__SSA1_1 = _dispatch_error_( 1, int[*], "_MAIN::sel :: int[*] int[*] -> int[*] ", idx, array); 
+  }
+  _cwc_163__SSA1_2 = ( _cwc_183 ? _cwc_163 : _cwc_163__SSA1_1 ); 
+  return( _cwc_163__SSA1_2); 
+}
+
+
+
+/****************************************************************************
+ * Cond function:
+ * _MAIN::_dup_213_sel__Cond_15(...) [ body ]
+ ****************************************************************************/
+int[*] _MAIN::_dup_213_sel__Cond_15( bool _cwc_181 { ,NN } , int[*] array { ,NN } , int[*] idx { ,NN } )
+/*
+ *  _dup_213_sel__Cond_15 ::  ---
+ */
+{ 
+  int[*] _cwc_163__SSA1_2 { , NN } ; 
+  int[*] _cwc_163__SSA1_1 { , NN } ; 
+  int _cwc_166 { , NN } ; 
+  int{1} _cwc_168 { , NN } ; 
+  bool _cwc_169 { , NN } ; 
+  int _cwc_172 { , NN } ; 
+  int{1} _cwc_174 { , NN } ; 
+  bool _cwc_175 { , NN } ; 
+  int[*] _cwc_163 { , NN } ; 
+
+  if (_cwc_181) 
+  { 
+    _cwc_172 = _dim_A_( array); 
+    _cwc_174 = 1; 
+    _cwc_175 = _eq_SxS_( _cwc_172, _cwc_174); 
+    _cwc_163 = _MAIN::_dup_212_sel__Cond_13( _cwc_175, array, idx) ; 
+  }
+  else
+  { 
+    _cwc_166 = _dim_A_( array); 
+    _cwc_168 = 1; 
+    _cwc_169 = _eq_SxS_( _cwc_166, _cwc_168); 
+    _cwc_163__SSA1_1 = _MAIN::_dup_211_sel__Cond_14( _cwc_169, array, idx) ; 
+  }
+  _cwc_163__SSA1_2 = ( _cwc_181 ? _cwc_163 : _cwc_163__SSA1_1 ); 
+  return( _cwc_163__SSA1_2); 
+}
+
+
+
+/****************************************************************************
+ * Cond function:
+ * _MAIN::_dup_212_sel__Cond_13(...) [ body ]
+ ****************************************************************************/
+int[*] _MAIN::_dup_212_sel__Cond_13( bool _cwc_175 { ,NN } , int[*] array { ,NN } , int[*] idx { ,NN } )
+/*
+ *  _dup_212_sel__Cond_13 ::  ---
+ */
+{ 
+  int[*] _cwc_163__SSA1_2 { , NN } ; 
+  int[*] _cwc_163__SSA1_1 { , NN } ; 
+  int[*] _cwc_171 { , NN } ; 
+  int _cwc_173 { , NN } ; 
+  int _cwc_163 { , NN } ; 
+
+  if (_cwc_175) 
+  { 
+    _cwc_173 = _MAIN::sel( idx, array) ; 
+    _cwc_163 = _cwc_173; 
+  }
+  else
+  { 
+    _cwc_171 = _MAIN::sel( idx, array) ; 
+    _cwc_163__SSA1_1 = _cwc_171; 
+  }
+  _cwc_163__SSA1_2 = ( _cwc_175 ? _cwc_163 : _cwc_163__SSA1_1 ); 
+  return( _cwc_163__SSA1_2); 
+}
+
+
+
+/****************************************************************************
+ * Cond function:
+ * _MAIN::_dup_211_sel__Cond_14(...) [ body ]
+ ****************************************************************************/
+int[*] _MAIN::_dup_211_sel__Cond_14( bool _cwc_169 { ,NN } , int[*] array { ,NN } , int[*] idx { ,NN } )
+/*
+ *  _dup_211_sel__Cond_14 ::  ---
+ */
+{ 
+  int[*] _cwc_163__SSA1_2 { , NN } ; 
+  int[*] _cwc_163__SSA1_1 { , NN } ; 
+  int[*] _cwc_165 { , NN } ; 
+  int[*] _cwc_167 { , NN } ; 
+  int[*] _cwc_163 { , NN } ; 
+
+  if (_cwc_169) 
+  { 
+    _cwc_167 = _MAIN::sel( idx, array) ; 
+    _cwc_163 = _cwc_167; 
+  }
+  else
+  { 
+    _cwc_165 = _MAIN::sel( idx, array) ; 
+    _cwc_163__SSA1_1 = _cwc_165; 
+  }
+  _cwc_163__SSA1_2 = ( _cwc_169 ? _cwc_163 : _cwc_163__SSA1_1 ); 
+  return( _cwc_163__SSA1_2); 
+}
+
+
+
+/****************************************************************************
+ * Cond function:
+ * _MAIN::_dup_205_*__Cond_7(...) [ body ]
+ ****************************************************************************/
+int[*] _MAIN::_dup_205_*__Cond_7( bool _cwc_155 { ,NN } , int[*] b { ,NN } , int[*] a { ,NN } )
+/*
+ *  _dup_205_*__Cond_7 ::  ---
+ */
+{ 
+  int[*] _cwc_135__SSA1_2 { , NN } ; 
+  int[*] _cwc_135__SSA1_1 { , NN } ; 
+  int _cwc_148 { , NN } ; 
+  int{1} _cwc_150 { , NN } ; 
+  bool _cwc_151 { , NN } ; 
+  int _cwc_153 { , NN } ; 
+  int _cwc_135 { , NN } ; 
+
+  if (_cwc_155) 
+  { 
+    _cwc_153 = ( a _MAIN::*b) ; 
+    _cwc_135 = _cwc_153; 
+  }
+  else
+  { 
+    _cwc_148 = _dim_A_( b); 
+    _cwc_150 = 1; 
+    _cwc_151 = _eq_SxS_( _cwc_148, _cwc_150); 
+    _cwc_135__SSA1_1 = _MAIN::_dup_204_*__Cond_6( _cwc_151, b, a) ; 
+  }
+  _cwc_135__SSA1_2 = ( _cwc_155 ? _cwc_135 : _cwc_135__SSA1_1 ); 
+  return( _cwc_135__SSA1_2); 
+}
+
+
+
+/****************************************************************************
+ * Cond function:
+ * _MAIN::_dup_204_*__Cond_6(...) [ body ]
+ ****************************************************************************/
+int[*] _MAIN::_dup_204_*__Cond_6( bool _cwc_151 { ,NN } , int[*] b { ,NN } , int[*] a { ,NN } )
+/*
+ *  _dup_204_*__Cond_6 ::  ---
+ */
+{ 
+  int[*] _cwc_135__SSA1_2 { , NN } ; 
+  int[*] _cwc_135__SSA1_1 { , NN } ; 
+  int[.] _cwc_149 { , NN } ; 
+  int[.] _cwc_135 { , NN } ; 
+
+  if (_cwc_151) 
+  { 
+    _cwc_149 = ( a _MAIN::*b) ; 
+    _cwc_135 = _cwc_149; 
+  }
+  else
+  { 
+    _cwc_135__SSA1_1 = _dispatch_error_( 1, int[*], "_MAIN::* :: int[*] int[*] -> int[*] ", a, b); 
+  }
+  _cwc_135__SSA1_2 = ( _cwc_151 ? _cwc_135 : _cwc_135__SSA1_1 ); 
+  return( _cwc_135__SSA1_2); 
+}
+
+
+
+/****************************************************************************
+ * Cond function:
+ * _MAIN::_dup_203_*__Cond_10(...) [ body ]
+ ****************************************************************************/
+int[*] _MAIN::_dup_203_*__Cond_10( bool _cwc_146 { ,NN } , int[*] b { ,NN } , int[*] a { ,NN } )
+/*
+ *  _dup_203_*__Cond_10 ::  ---
+ */
+{ 
+  int[*] _cwc_135__SSA1_2 { , NN } ; 
+  int[*] _cwc_135__SSA1_1 { , NN } ; 
+  int _cwc_141 { , NN } ; 
+  int{0} _cwc_143 { , NN } ; 
+  bool _cwc_144 { , NN } ; 
+  int[*] _cwc_135 { , NN } ; 
+
+  if (_cwc_146) 
+  { 
+    _cwc_141 = _dim_A_( b); 
+    _cwc_143 = 0; 
+    _cwc_144 = _eq_SxS_( _cwc_141, _cwc_143); 
+    _cwc_135 = _MAIN::_dup_202_*__Cond_9( _cwc_144, b, a) ; 
+  }
+  else
+  { 
+    _cwc_135__SSA1_1 = _dispatch_error_( 1, int[*], "_MAIN::* :: int[*] int[*] -> int[*] ", a, b); 
+  }
+  _cwc_135__SSA1_2 = ( _cwc_146 ? _cwc_135 : _cwc_135__SSA1_1 ); 
+  return( _cwc_135__SSA1_2); 
+}
+
+
+
+/****************************************************************************
+ * Cond function:
+ * _MAIN::_dup_202_*__Cond_9(...) [ body ]
+ ****************************************************************************/
+int[*] _MAIN::_dup_202_*__Cond_9( bool _cwc_144 { ,NN } , int[*] b { ,NN } , int[*] a { ,NN } )
+/*
+ *  _dup_202_*__Cond_9 ::  ---
+ */
+{ 
+  int[*] _cwc_135__SSA1_2 { , NN } ; 
+  int[*] _cwc_135__SSA1_1 { , NN } ; 
+  int _cwc_137 { , NN } ; 
+  int{1} _cwc_139 { , NN } ; 
+  bool _cwc_140 { , NN } ; 
+  int[.] _cwc_142 { , NN } ; 
+  int[.] _cwc_135 { , NN } ; 
+
+  if (_cwc_144) 
+  { 
+    _cwc_142 = ( a _MAIN::*b) ; 
+    _cwc_135 = _cwc_142; 
+  }
+  else
+  { 
+    _cwc_137 = _dim_A_( b); 
+    _cwc_139 = 1; 
+    _cwc_140 = _eq_SxS_( _cwc_137, _cwc_139); 
+    _cwc_135__SSA1_1 = _MAIN::_dup_201_*__Cond_8( _cwc_140, b, a) ; 
+  }
+  _cwc_135__SSA1_2 = ( _cwc_144 ? _cwc_135 : _cwc_135__SSA1_1 ); 
+  return( _cwc_135__SSA1_2); 
+}
+
+
+
+/****************************************************************************
+ * Cond function:
+ * _MAIN::_dup_201_*__Cond_8(...) [ body ]
+ ****************************************************************************/
+int[*] _MAIN::_dup_201_*__Cond_8( bool _cwc_140 { ,NN } , int[*] b { ,NN } , int[*] a { ,NN } )
+/*
+ *  _dup_201_*__Cond_8 ::  ---
+ */
+{ 
+  int[*] _cwc_135__SSA1_2 { , NN } ; 
+  int[*] _cwc_135__SSA1_1 { , NN } ; 
+  int[.] _cwc_138 { , NN } ; 
+  int[.] _cwc_135 { , NN } ; 
+
+  if (_cwc_140) 
+  { 
+    _cwc_138 = ( a _MAIN::*b) ; 
+    _cwc_135 = _cwc_138; 
+  }
+  else
+  { 
+    _cwc_135__SSA1_1 = _dispatch_error_( 1, int[*], "_MAIN::* :: int[*] int[*] -> int[*] ", a, b); 
+  }
+  _cwc_135__SSA1_2 = ( _cwc_140 ? _cwc_135 : _cwc_135__SSA1_1 ); 
+  return( _cwc_135__SSA1_2); 
+}
+
+
+
+/****************************************************************************
+ * Cond function:
+ * _MAIN::_dup_196_+__Cond_1(...) [ body ]
+ ****************************************************************************/
+int[*] _MAIN::_dup_196_+__Cond_1( bool _cwc_132 { ,NN } , int[*] b { ,NN } , int[*] a { ,NN } )
+/*
+ *  _dup_196_+__Cond_1 ::  ---
+ */
+{ 
+  int[*] _cwc_112__SSA1_2 { , NN } ; 
+  int[*] _cwc_112__SSA1_1 { , NN } ; 
+  int _cwc_125 { , NN } ; 
+  int{1} _cwc_127 { , NN } ; 
+  bool _cwc_128 { , NN } ; 
+  int _cwc_130 { , NN } ; 
+  int _cwc_112 { , NN } ; 
+
+  if (_cwc_132) 
+  { 
+    _cwc_130 = ( a _MAIN::+b) ; 
+    _cwc_112 = _cwc_130; 
+  }
+  else
+  { 
+    _cwc_125 = _dim_A_( b); 
+    _cwc_127 = 1; 
+    _cwc_128 = _eq_SxS_( _cwc_125, _cwc_127); 
+    _cwc_112__SSA1_1 = _MAIN::_dup_195_+__Cond_0( _cwc_128, b, a) ; 
+  }
+  _cwc_112__SSA1_2 = ( _cwc_132 ? _cwc_112 : _cwc_112__SSA1_1 ); 
+  return( _cwc_112__SSA1_2); 
+}
+
+
+
+/****************************************************************************
+ * Cond function:
+ * _MAIN::_dup_195_+__Cond_0(...) [ body ]
+ ****************************************************************************/
+int[*] _MAIN::_dup_195_+__Cond_0( bool _cwc_128 { ,NN } , int[*] b { ,NN } , int[*] a { ,NN } )
+/*
+ *  _dup_195_+__Cond_0 ::  ---
+ */
+{ 
+  int[*] _cwc_112__SSA1_2 { , NN } ; 
+  int[*] _cwc_112__SSA1_1 { , NN } ; 
+  int[.] _cwc_126 { , NN } ; 
+  int[.] _cwc_112 { , NN } ; 
+
+  if (_cwc_128) 
+  { 
+    _cwc_126 = ( a _MAIN::+b) ; 
+    _cwc_112 = _cwc_126; 
+  }
+  else
+  { 
+    _cwc_112__SSA1_1 = _dispatch_error_( 1, int[*], "_MAIN::+ :: int[*] int[*] -> int[*] ", a, b); 
+  }
+  _cwc_112__SSA1_2 = ( _cwc_128 ? _cwc_112 : _cwc_112__SSA1_1 ); 
+  return( _cwc_112__SSA1_2); 
+}
+
+
+
+/****************************************************************************
+ * Cond function:
+ * _MAIN::_dup_194_+__Cond_4(...) [ body ]
+ ****************************************************************************/
+int[*] _MAIN::_dup_194_+__Cond_4( bool _cwc_123 { ,NN } , int[*] b { ,NN } , int[*] a { ,NN } )
+/*
+ *  _dup_194_+__Cond_4 ::  ---
+ */
+{ 
+  int[*] _cwc_112__SSA1_2 { , NN } ; 
+  int[*] _cwc_112__SSA1_1 { , NN } ; 
+  int _cwc_118 { , NN } ; 
+  int{0} _cwc_120 { , NN } ; 
+  bool _cwc_121 { , NN } ; 
+  int[*] _cwc_112 { , NN } ; 
+
+  if (_cwc_123) 
+  { 
+    _cwc_118 = _dim_A_( b); 
+    _cwc_120 = 0; 
+    _cwc_121 = _eq_SxS_( _cwc_118, _cwc_120); 
+    _cwc_112 = _MAIN::_dup_193_+__Cond_3( _cwc_121, b, a) ; 
+  }
+  else
+  { 
+    _cwc_112__SSA1_1 = _dispatch_error_( 1, int[*], "_MAIN::+ :: int[*] int[*] -> int[*] ", a, b); 
+  }
+  _cwc_112__SSA1_2 = ( _cwc_123 ? _cwc_112 : _cwc_112__SSA1_1 ); 
+  return( _cwc_112__SSA1_2); 
+}
+
+
+
+/****************************************************************************
+ * Cond function:
+ * _MAIN::_dup_193_+__Cond_3(...) [ body ]
+ ****************************************************************************/
+int[*] _MAIN::_dup_193_+__Cond_3( bool _cwc_121 { ,NN } , int[*] b { ,NN } , int[*] a { ,NN } )
+/*
+ *  _dup_193_+__Cond_3 ::  ---
+ */
+{ 
+  int[*] _cwc_112__SSA1_2 { , NN } ; 
+  int[*] _cwc_112__SSA1_1 { , NN } ; 
+  int _cwc_114 { , NN } ; 
+  int{1} _cwc_116 { , NN } ; 
+  bool _cwc_117 { , NN } ; 
+  int[.] _cwc_119 { , NN } ; 
+  int[.] _cwc_112 { , NN } ; 
+
+  if (_cwc_121) 
+  { 
+    _cwc_119 = ( a _MAIN::+b) ; 
+    _cwc_112 = _cwc_119; 
+  }
+  else
+  { 
+    _cwc_114 = _dim_A_( b); 
+    _cwc_116 = 1; 
+    _cwc_117 = _eq_SxS_( _cwc_114, _cwc_116); 
+    _cwc_112__SSA1_1 = _MAIN::_dup_192_+__Cond_2( _cwc_117, b, a) ; 
+  }
+  _cwc_112__SSA1_2 = ( _cwc_121 ? _cwc_112 : _cwc_112__SSA1_1 ); 
+  return( _cwc_112__SSA1_2); 
+}
+
+
+
+/****************************************************************************
+ * Cond function:
+ * _MAIN::_dup_192_+__Cond_2(...) [ body ]
+ ****************************************************************************/
+int[*] _MAIN::_dup_192_+__Cond_2( bool _cwc_117 { ,NN } , int[*] b { ,NN } , int[*] a { ,NN } )
+/*
+ *  _dup_192_+__Cond_2 ::  ---
+ */
+{ 
+  int[*] _cwc_112__SSA1_2 { , NN } ; 
+  int[*] _cwc_112__SSA1_1 { , NN } ; 
+  int[.] _cwc_115 { , NN } ; 
+  int[.] _cwc_112 { , NN } ; 
+
+  if (_cwc_117) 
+  { 
+    _cwc_115 = ( a _MAIN::+b) ; 
+    _cwc_112 = _cwc_115; 
+  }
+  else
+  { 
+    _cwc_112__SSA1_1 = _dispatch_error_( 1, int[*], "_MAIN::+ :: int[*] int[*] -> int[*] ", a, b); 
+  }
+  _cwc_112__SSA1_2 = ( _cwc_117 ? _cwc_112 : _cwc_112__SSA1_1 ); 
+  return( _cwc_112__SSA1_2); 
+}
+
+
+
+/****************************************************************************
+ * Wrapper function:
+ * _MAIN::main(...) [ wrapper ]
+ ****************************************************************************/
+int _MAIN::main()
+/*
+ *  main :: ( int)
+ *  dispatching to: _MAIN::main
+ */
+{ 
+  int _cwc_110 { , NN } ; 
+  int _cwc_111 { , NN } ; 
+
+  _cwc_111 = _MAIN::main() ; 
+  _cwc_110 = _cwc_111; 
+  return( _cwc_110); 
+}
+
+
+
+/****************************************************************************
+ * Cond function:
+ * _MAIN::+__Cond_5(...) [ body ]
+ ****************************************************************************/
+int[*] _MAIN::+__Cond_5( bool _cwc_134 { ,NN } , int[*] b { ,NN } , int[*] a { ,NN } )
+/*
+ *  +__Cond_5 ::  ---
+ */
+{ 
+  int[*] _cwc_112__SSA1_2 { , NN } ; 
+  int[*] _cwc_112__SSA1_1 { , NN } ; 
+  int _cwc_113 { , NN } ; 
+  int{1} _cwc_122 { , NN } ; 
+  bool _cwc_123 { , NN } ; 
+  int _cwc_129 { , NN } ; 
+  int{0} _cwc_131 { , NN } ; 
+  bool _cwc_132 { , NN } ; 
+  int[*] _cwc_112 { , NN } ; 
+
+  if (_cwc_134) 
+  { 
+    _cwc_129 = _dim_A_( b); 
+    _cwc_131 = 0; 
+    _cwc_132 = _eq_SxS_( _cwc_129, _cwc_131); 
+    _cwc_112 = _MAIN::_dup_196_+__Cond_1( _cwc_132, b, a) ; 
+  }
+  else
+  { 
+    _cwc_113 = _dim_A_( a); 
+    _cwc_122 = 1; 
+    _cwc_123 = _eq_SxS_( _cwc_113, _cwc_122); 
+    _cwc_112__SSA1_1 = _MAIN::_dup_194_+__Cond_4( _cwc_123, b, a) ; 
+  }
+  _cwc_112__SSA1_2 = ( _cwc_134 ? _cwc_112 : _cwc_112__SSA1_1 ); 
+  return( _cwc_112__SSA1_2); 
+}
+
+
+
+/****************************************************************************
+ * Wrapper function:
+ * _MAIN::+(...) [ wrapper ]
+ ****************************************************************************/
+int[*] _MAIN::+( int[*] a { ,NN } , int[*] b { ,NN } )
+/*
+ *  + :: { int[*] -> { int[*] -> ( int[*]),
+                       int -> ( int[*]),
+                       int[+] -> ( int[.]),
+                       int[.] -> ( int[.])},
+           int -> { int[*] -> ( int[*]),
+                    int -> ( int),
+                    int[+] -> ( int[.]),
+                    int[.] -> ( int[.])},
+           int[+] -> { int[*] -> ( int[.]),
+                       int -> ( int[.]),
+                       int[+] -> ( int[.]),
+                       int[.] -> ( int[.])},
+           int[.] -> { int[*] -> ( int[.]),
+                       int -> ( int[.]),
+                       int[+] -> ( int[.]),
+                       int[.] -> ( int[.])}}
+ *  dispatching to: _MAIN::+,
+ *                  _MAIN::+,
+ *                  _MAIN::+,
+ *                  _MAIN::+
+ */
+{ 
+  int[*] _cwc_112 { , NN } ; 
+  bool _cwc_134 { , NN } ; 
+  int{0} _cwc_133 { , NN } ; 
+  int _cwc_124 { , NN } ; 
+
+  _cwc_124 = _dim_A_( a); 
+  _cwc_133 = 0; 
+  _cwc_134 = _eq_SxS_( _cwc_124, _cwc_133); 
+  _cwc_112 = _MAIN::+__Cond_5( _cwc_134, b, a) ; 
+  return( _cwc_112); 
+}
+
+
+
+/****************************************************************************
+ * Cond function:
+ * _MAIN::*__Cond_11(...) [ body ]
+ ****************************************************************************/
+int[*] _MAIN::*__Cond_11( bool _cwc_157 { ,NN } , int[*] b { ,NN } , int[*] a { ,NN } )
+/*
+ *  *__Cond_11 ::  ---
+ */
+{ 
+  int[*] _cwc_135__SSA1_2 { , NN } ; 
+  int[*] _cwc_135__SSA1_1 { , NN } ; 
+  int _cwc_136 { , NN } ; 
+  int{1} _cwc_145 { , NN } ; 
+  bool _cwc_146 { , NN } ; 
+  int _cwc_152 { , NN } ; 
+  int{0} _cwc_154 { , NN } ; 
+  bool _cwc_155 { , NN } ; 
+  int[*] _cwc_135 { , NN } ; 
+
+  if (_cwc_157) 
+  { 
+    _cwc_152 = _dim_A_( b); 
+    _cwc_154 = 0; 
+    _cwc_155 = _eq_SxS_( _cwc_152, _cwc_154); 
+    _cwc_135 = _MAIN::_dup_205_*__Cond_7( _cwc_155, b, a) ; 
+  }
+  else
+  { 
+    _cwc_136 = _dim_A_( a); 
+    _cwc_145 = 1; 
+    _cwc_146 = _eq_SxS_( _cwc_136, _cwc_145); 
+    _cwc_135__SSA1_1 = _MAIN::_dup_203_*__Cond_10( _cwc_146, b, a) ; 
+  }
+  _cwc_135__SSA1_2 = ( _cwc_157 ? _cwc_135 : _cwc_135__SSA1_1 ); 
+  return( _cwc_135__SSA1_2); 
+}
+
+
+
+/****************************************************************************
+ * Wrapper function:
+ * _MAIN::*(...) [ wrapper ]
+ ****************************************************************************/
+int[*] _MAIN::*( int[*] a { ,NN } , int[*] b { ,NN } )
+/*
+ *  * :: { int[*] -> { int[*] -> ( int[*]),
+                       int -> ( int[*]),
+                       int[+] -> ( int[.]),
+                       int[.] -> ( int[.])},
+           int -> { int[*] -> ( int[*]),
+                    int -> ( int),
+                    int[+] -> ( int[.]),
+                    int[.] -> ( int[.])},
+           int[+] -> { int[*] -> ( int[.]),
+                       int -> ( int[.]),
+                       int[+] -> ( int[.]),
+                       int[.] -> ( int[.])},
+           int[.] -> { int[*] -> ( int[.]),
+                       int -> ( int[.]),
+                       int[+] -> ( int[.]),
+                       int[.] -> ( int[.])}}
+ *  dispatching to: _MAIN::*,
+ *                  _MAIN::*,
+ *                  _MAIN::*,
+ *                  _MAIN::*
+ */
+{ 
+  int[*] _cwc_135 { , NN } ; 
+  bool _cwc_157 { , NN } ; 
+  int{0} _cwc_156 { , NN } ; 
+  int _cwc_147 { , NN } ; 
+
+  _cwc_147 = _dim_A_( a); 
+  _cwc_156 = 0; 
+  _cwc_157 = _eq_SxS_( _cwc_147, _cwc_156); 
+  _cwc_135 = _MAIN::*__Cond_11( _cwc_157, b, a) ; 
+  return( _cwc_135); 
+}
+
+
+
+/****************************************************************************
+ * Cond function:
+ * _MAIN::iota__Cond_12(...) [ body ]
+ ****************************************************************************/
+int[.] _MAIN::iota__Cond_12( bool _cwc_162 { ,NN } , int[*] a { ,NN } )
+/*
+ *  iota__Cond_12 ::  ---
+ */
+{ 
+  int[.] _cwc_158__SSA1_2 { , NN } ; 
+  int[.] _cwc_158__SSA1_1 { , NN } ; 
+  int[.] _cwc_160 { , NN } ; 
+  int[.] _cwc_158 { , NN } ; 
+
+  if (_cwc_162) 
+  { 
+    _cwc_160 = _MAIN::iota( a) ; 
+    _cwc_158 = _cwc_160; 
+  }
+  else
+  { 
+    _cwc_158__SSA1_1 = _dispatch_error_( 1, int[.], "_MAIN::iota :: int[*] -> int[.] ", a); 
+  }
+  _cwc_158__SSA1_2 = ( _cwc_162 ? _cwc_158 : _cwc_158__SSA1_1 ); 
+  return( _cwc_158__SSA1_2); 
+}
+
+
+
+/****************************************************************************
+ * Wrapper function:
+ * _MAIN::iota(...) [ wrapper ]
+ ****************************************************************************/
+int[.] _MAIN::iota( int[*] a { ,NN } )
+/*
+ *  iota :: { int[*] -> ( int[.]),
+              int -> ( int[.])}
+ *  dispatching to: _MAIN::iota
+ */
+{ 
+  int[.] _cwc_158 { , NN } ; 
+  bool _cwc_162 { , NN } ; 
+  int{0} _cwc_161 { , NN } ; 
+  int _cwc_159 { , NN } ; 
+
+  _cwc_159 = _dim_A_( a); 
+  _cwc_161 = 0; 
+  _cwc_162 = _eq_SxS_( _cwc_159, _cwc_161); 
+  _cwc_158 = _MAIN::iota__Cond_12( _cwc_162, a) ; 
+  return( _cwc_158); 
+}
+
+
+
+/****************************************************************************
+ * Cond function:
+ * _MAIN::sel__Cond_17(...) [ body ]
+ ****************************************************************************/
+int[*] _MAIN::sel__Cond_17( bool _cwc_187 { ,NN } , int[*] array { ,NN } , int[*] idx { ,NN } )
+/*
+ *  sel__Cond_17 ::  ---
+ */
+{ 
+  int[*] _cwc_163__SSA1_2 { , NN } ; 
+  int[*] _cwc_163__SSA1_1 { , NN } ; 
+  int _cwc_164 { , NN } ; 
+  int{1} _cwc_182 { , NN } ; 
+  bool _cwc_183 { , NN } ; 
+  int[*] _cwc_185 { , NN } ; 
+  int[*] _cwc_163 { , NN } ; 
+
+  if (_cwc_187) 
+  { 
+    _cwc_185 = _MAIN::sel( idx, array) ; 
+    _cwc_163 = _cwc_185; 
+  }
+  else
+  { 
+    _cwc_164 = _dim_A_( idx); 
+    _cwc_182 = 1; 
+    _cwc_183 = _eq_SxS_( _cwc_164, _cwc_182); 
+    _cwc_163__SSA1_1 = _MAIN::_dup_214_sel__Cond_16( _cwc_183, array, idx) ; 
+  }
+  _cwc_163__SSA1_2 = ( _cwc_187 ? _cwc_163 : _cwc_163__SSA1_1 ); 
+  return( _cwc_163__SSA1_2); 
+}
+
+
+
+/****************************************************************************
+ * Wrapper function:
+ * _MAIN::sel(...) [ wrapper ]
+ ****************************************************************************/
+int[*] _MAIN::sel( int[*] idx { ,NN } , int[*] array { ,NN } )
+/*
+ *  sel :: { int[*] -> { int[*] -> ( int[*]),
+                         int[+] -> ( int),
+                         int[.] -> ( int)},
+             int -> { int[*] -> ( int[*])},
+             int[+] -> { int[*] -> ( int[*]),
+                         int[+] -> ( int),
+                         int[.] -> ( int)},
+             int[.] -> { int[*] -> ( int[*]),
+                         int[+] -> ( int),
+                         int[.] -> ( int)},
+             int[1] -> { int[*] -> ( int[*]),
+                         int[+] -> ( int),
+                         int[.] -> ( int)}}
+ *  dispatching to: _MAIN::sel,
+ *                  _MAIN::sel,
+ *                  _MAIN::sel,
+ *                  _MAIN::sel
+ */
+{ 
+  int[*] _cwc_163 { , NN } ; 
+  bool _cwc_187 { , NN } ; 
+  int{0} _cwc_186 { , NN } ; 
+  int _cwc_184 { , NN } ; 
+
+  _cwc_184 = _dim_A_( idx); 
+  _cwc_186 = 0; 
+  _cwc_187 = _eq_SxS_( _cwc_184, _cwc_186); 
+  _cwc_163 = _MAIN::sel__Cond_17( _cwc_187, array, idx) ; 
+  return( _cwc_163); 
+}
+
+
+
+/****************************************************************************
+ * _MAIN::+(...) [ body ]
+ ****************************************************************************/
+inline
+int _MAIN::+( int a { ,NN } , int b { ,NN } )
+/*
+ *  + ::  ---
+ */
+{ 
+  int _flat_2__SSA0_1 { , NN } ; 
+  int _flat_2 { , NN } ; 
+
+  _flat_2 = _add_SxS_( a, b); 
+  _flat_2__SSA0_1 = _type_conv_( int, _flat_2); 
+  return( _flat_2__SSA0_1); 
+}
+
+
+
+/****************************************************************************
+ * _MAIN::*(...) [ body ]
+ ****************************************************************************/
+inline
+int _MAIN::*( int a { ,NN } , int b { ,NN } )
+/*
+ *  * ::  ---
+ */
+{ 
+  int _flat_4__SSA0_1 { , NN } ; 
+  int _flat_4 { , NN } ; 
+
+  _flat_4 = _mul_SxS_( a, b); 
+  _flat_4__SSA0_1 = _type_conv_( int, _flat_4); 
+  return( _flat_4__SSA0_1); 
+}
+
+
+
+/****************************************************************************
+ * _MAIN::sel(...) [ body ]
+ ****************************************************************************/
+inline
+int[*] _MAIN::sel( int[.] idx { ,NN } , int[*] array { ,NN } )
+/*
+ *  sel ::  ---
+ */
+{ 
+  int[*] _flat_20 { , NN } ; 
+  int _flat_24 { , NN } ; 
+  int[.] new_idx { , NN } ; 
+  int[.] iv { , NN } ; 
+  int[.] _flat_22 { , NN } ; 
+  int[.] new_shape { , NN } ; 
+  int _flat_15 { , NN } ; 
+  int[1]{0} _flat_16 { , NN } ; 
+  int{0} _flat_17 { , NN } ; 
+  int[1] _flat_18 { , NN } ; 
+  int[.] _flat_19 { , NN } ; 
+
+  _flat_19 = _shape_A_( array); 
+  _flat_18 = _shape_A_( idx); 
+  _flat_17 = 0; 
+  _flat_16 = [ _flat_17 ]; 
+  _flat_15 = _sel_VxA_( _flat_16, _flat_18); 
+  new_shape = _drop_SxV_( _flat_15, _flat_19); 
+  _flat_22 = _mul_SxV_( _flat_17, new_shape); 
+  _flat_20 = with {
+        /* Partn */
+        (_flat_22 <= iv < new_shape)
+        { 
+          new_idx = _cat_VxV_( idx, iv); 
+          _flat_24 = _sel_VxA_( new_idx, array); 
+        } : _flat_24 ; 
+         } :
+      genarray( new_shape, _flat_17); 
+  return( _flat_20); 
+}
+
+
+
+/****************************************************************************
+ * _MAIN::sel(...) [ body ]
+ ****************************************************************************/
+inline
+int[*] _MAIN::sel( int idx { ,NN } , int[*] a { ,NN } )
+/*
+ *  sel ::  ---
+ */
+{ 
+  int[*] _flat_25 { , NN } ; 
+  int[1] _flat_26 { , NN } ; 
+
+  _flat_26 = [ idx ]; 
+  _flat_25 = _MAIN::sel( _flat_26, a) ; 
+  return( _flat_25); 
+}
+
+
+
+/****************************************************************************
+ * _MAIN::+(...) [ body ]
+ ****************************************************************************/
+inline
+int[.] _MAIN::+( int a { ,NN } , int[.] b { ,NN } )
+/*
+ *  + ::  ---
+ */
+{ 
+  int[.] _flat_49__SSA0_1 { , NN } ; 
+  int[.] _flat_49 { , NN } ; 
+
+  _flat_49 = _add_SxV_( a, b); 
+  _flat_49__SSA0_1 = _type_conv_( int[.], _flat_49); 
+  return( _flat_49__SSA0_1); 
+}
+
+
+
+/****************************************************************************
+ * _MAIN::+(...) [ body ]
+ ****************************************************************************/
+inline
+int[.] _MAIN::+( int[.] b { ,NN } , int a { ,NN } )
+/*
+ *  + ::  ---
+ */
+{ 
+  int[.] _flat_50__SSA0_1 { , NN } ; 
+  int[.] _flat_50 { , NN } ; 
+
+  _flat_50 = _add_VxS_( b, a); 
+  _flat_50__SSA0_1 = _type_conv_( int[.], _flat_50); 
+  return( _flat_50__SSA0_1); 
+}
+
+
+
+/****************************************************************************
+ * _MAIN::+(...) [ body ]
+ ****************************************************************************/
+inline
+int[.] _MAIN::+( int[.] a { ,NN } , int[.] b { ,NN } )
+/*
+ *  + ::  ---
+ */
+{ 
+  int[.] _flat_51__SSA0_1 { , NN } ; 
+  int[.] _flat_51 { , NN } ; 
+
+  _flat_51 = _add_VxV_( a, b); 
+  _flat_51__SSA0_1 = _type_conv_( int[.], _flat_51); 
+  return( _flat_51__SSA0_1); 
+}
+
+
+
+/****************************************************************************
+ * _MAIN::*(...) [ body ]
+ ****************************************************************************/
+inline
+int[.] _MAIN::*( int a { ,NN } , int[.] b { ,NN } )
+/*
+ *  * ::  ---
+ */
+{ 
+  int[.] _flat_55__SSA0_1 { , NN } ; 
+  int[.] _flat_55 { , NN } ; 
+
+  _flat_55 = _mul_SxV_( a, b); 
+  _flat_55__SSA0_1 = _type_conv_( int[.], _flat_55); 
+  return( _flat_55__SSA0_1); 
+}
+
+
+
+/****************************************************************************
+ * _MAIN::*(...) [ body ]
+ ****************************************************************************/
+inline
+int[.] _MAIN::*( int[.] b { ,NN } , int a { ,NN } )
+/*
+ *  * ::  ---
+ */
+{ 
+  int[.] _flat_56__SSA0_1 { , NN } ; 
+  int[.] _flat_56 { , NN } ; 
+
+  _flat_56 = _mul_VxS_( b, a); 
+  _flat_56__SSA0_1 = _type_conv_( int[.], _flat_56); 
+  return( _flat_56__SSA0_1); 
+}
+
+
+
+/****************************************************************************
+ * _MAIN::*(...) [ body ]
+ ****************************************************************************/
+inline
+int[.] _MAIN::*( int[.] a { ,NN } , int[.] b { ,NN } )
+/*
+ *  * ::  ---
+ */
+{ 
+  int[.] _flat_57__SSA0_1 { , NN } ; 
+  int[.] _flat_57 { , NN } ; 
+
+  _flat_57 = _mul_VxV_( a, b); 
+  _flat_57__SSA0_1 = _type_conv_( int[.], _flat_57); 
+  return( _flat_57__SSA0_1); 
+}
+
+
+
+/****************************************************************************
+ * _MAIN::iota(...) [ body ]
+ ****************************************************************************/
+inline
+int[.] _MAIN::iota( int a { ,NN } )
+/*
+ *  iota ::  ---
+ */
+{ 
+  int[.] _flat_63__SSA0_1 { , NN } ; 
+  int[.] _flat_63 { , NN } ; 
+  int k { , NN } ; 
+  int[1] iv { , NN } ; 
+  int[1] _flat_66 { , NN } ; 
+  int{0} _flat_67 { , NN } ; 
+  int[1] _flat_71 { , NN } ; 
+  int{1} _flat_72 { , NN } ; 
+  int[1] _flat_73 { , NN } ; 
+
+  _flat_73 = [ a ]; 
+  _flat_72 = 1; 
+  _flat_71 = _take_SxV_( _flat_72, _flat_73); 
+  _flat_67 = 0; 
+  _flat_66 = _mul_SxV_( _flat_67, _flat_71); 
+  _flat_63 = with {
+        /* Partn */
+        (_flat_66 <= iv=[k] < _flat_71)
+        { 
+        } : k ; 
+         } :
+      genarray( _flat_73, _flat_67); 
+  _flat_63__SSA0_1 = _type_conv_( int[.], _flat_63); 
+  return( _flat_63__SSA0_1); 
+}
+
+
+
+/****************************************************************************
+ * _MAIN::main(...) [ body ]
+ ****************************************************************************/
+int _MAIN::main()
+/*
+ *  main ::  ---
+ */
+{ 
+  int _ea_218__flat_105 { , NN } ; 
+  int _ea_217_b { , NN } ; 
+  int _ea_216__flat_108 { , NN } ; 
+  int _ea_215_c { , NN } ; 
+  int _eat_109 { , NN } ; 
+  int b__SSA0_1 { , NN } ; 
+  int c { , NN } ; 
+  int b { , NN } ; 
+  int _flat_105 { , NN } ; 
+  int{2} _flat_107 { , NN } ; 
+  int _flat_108 { , NN } ; 
+  int[1] iv { , NN } ; 
+  int{42} _flat_97 { , NN } ; 
+  int{13} _flat_98 { , NN } ; 
+  int[1]{1} _flat_99 { , NN } ; 
+  int[1]{66} _flat_101 { , NN } ; 
+  int[1]{65} _flat_102 { , NN } ; 
+  int{65} _flat_103 { , NN } ; 
+  int{1} _flat_104 { , NN } ; 
+  int[.] a { , NN } ; 
+  int{100} _flat_96 { , NN } ; 
+
+  _flat_96 = 100; 
+  a = _MAIN::iota( _flat_96) ; 
+  _flat_104 = 1; 
+  _flat_103 = 65; 
+  _flat_102 = [ _flat_103 ]; 
+  _flat_101 = _add_VxS_( _flat_102, _flat_104); 
+  _flat_99 = [ _flat_104 ]; 
+  _flat_98 = 13; 
+  _flat_97 = 42; 
+  b, c = with {
+        /* Partn */
+        (_flat_99 <= iv=[_eat_109] < _flat_101)
+        { 
+          _ea_217_b, _ea_215_c = _accu_( iv, _flat_98, _flat_98); 
+          _flat_108 = _MAIN::sel( iv, a) ; 
+          _flat_107 = 2; 
+          _flat_105 = ( _flat_108 _MAIN::*_flat_107) ; 
+          _ea_218__flat_105 = ( _ea_217_b _MAIN::+_flat_105) ; 
+          _ea_216__flat_108 = ( _ea_215_c _MAIN::+_flat_108) ; 
+        } : _ea_218__flat_105, _ea_216__flat_108 ; 
+         } :
+      fold( _MAIN::+(), _flat_97),
+      fold( _MAIN::+(), _flat_98); 
+  b__SSA0_1 = _type_conv_( int, b); 
+  return( b__SSA0_1); 
+}
+
+
+
+/****************************************************************************
+ * _MAIN::sel(...) [ body ]
+ ****************************************************************************/
+inline
+int _MAIN::sel( int[1] idx { ,NN } , int[.] array { ,NN } )
+/*
+ *  sel ::  ---
+ */
+{ 
+  int _flat_20 { , NN } ; 
+  int _flat_24 { , NN } ; 
+  int[1] new_idx { , NN } ; 
+  int[0] iv { , NN } ; 
+  int[0] _flat_22 { , NN } ; 
+  int[0] new_shape { , NN } ; 
+  int{1} _flat_15 { , NN } ; 
+  int[1]{0} _flat_16 { , NN } ; 
+  int{0} _flat_17 { , NN } ; 
+  int[1]{1} _flat_18 { , NN } ; 
+  int[1] _flat_19 { , NN } ; 
+
+  _flat_19 = _shape_A_( array); 
+  _flat_18 = _shape_A_( idx); 
+  _flat_17 = 0; 
+  _flat_16 = [ _flat_17 ]; 
+  _flat_15 = _sel_VxA_( _flat_16, _flat_18); 
+  new_shape = _drop_SxV_( _flat_15, _flat_19); 
+  _flat_22 = _mul_SxV_( _flat_17, new_shape); 
+  _flat_20 = with {
+        /* Partn */
+        (_flat_22 <= iv < new_shape)
+        { 
+          new_idx = _cat_VxV_( idx, iv); 
+          _flat_24 = _sel_VxA_( new_idx, array); 
+        } : _flat_24 ; 
+         } :
+      genarray( new_shape, _flat_17); 
+  return( _flat_20); 
+}
+
+
+
+/****************************************************************************
+ * _MAIN::sel(...) [ body ]
+ ****************************************************************************/
+inline
+int[*] _MAIN::sel( int[1] idx { ,NN } , int[*] array { ,NN } )
+/*
+ *  sel ::  ---
+ */
+{ 
+  int[*] _flat_20 { , NN } ; 
+  int _flat_24 { , NN } ; 
+  int[.] new_idx { , NN } ; 
+  int[.] iv { , NN } ; 
+  int[.] _flat_22 { , NN } ; 
+  int[.] new_shape { , NN } ; 
+  int{1} _flat_15 { , NN } ; 
+  int[1]{0} _flat_16 { , NN } ; 
+  int{0} _flat_17 { , NN } ; 
+  int[1]{1} _flat_18 { , NN } ; 
+  int[.] _flat_19 { , NN } ; 
+
+  _flat_19 = _shape_A_( array); 
+  _flat_18 = _shape_A_( idx); 
+  _flat_17 = 0; 
+  _flat_16 = [ _flat_17 ]; 
+  _flat_15 = _sel_VxA_( _flat_16, _flat_18); 
+  new_shape = _drop_SxV_( _flat_15, _flat_19); 
+  _flat_22 = _mul_SxV_( _flat_17, new_shape); 
+  _flat_20 = with {
+        /* Partn */
+        (_flat_22 <= iv < new_shape)
+        { 
+          new_idx = _cat_VxV_( idx, iv); 
+          _flat_24 = _sel_VxA_( new_idx, array); 
+        } : _flat_24 ; 
+         } :
+      genarray( new_shape, _flat_17); 
+  return( _flat_20); 
+}
+
+
+/*-----------------------------------------------*/

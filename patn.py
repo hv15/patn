@@ -30,7 +30,7 @@ import copy
 import tempfile
 from typing import Type, Match, IO, TextIO, Optional, Union, List, Tuple, Sequence
 
-__version__ = "0.1"
+__version__ = "0.2"
 
 IndexType = enum.Enum ('IndexType', 'Match PMatch')
 CondType = enum.Enum ('CondType', 'Eq Ne Skip Err')
@@ -83,14 +83,15 @@ class Index ():
         return self._opidx
 
 class Cond ():
-    def __init__ (self, ctype: CondType, lhs: Optional[Index | String], rhs: Optional[Index | String]) -> None:
+    def __init__ (self, ctype: CondType, lhs: Optional[Index | String], rhs: Optional[Index | String], rng: Optional[tuple[int,int]] = None) -> None:
         self._ctype = ctype
         self._lhs = lhs
         self._rhs = rhs
+        self._rng = rng
 
     def __str__ (self) -> str:
         if self._ctype != CondType.Skip:
-            return f"Cond (type={self._ctype}, lhs={self._lhs}, rhs={self._rhs})"
+            return f"Cond (type={self._ctype}, lhs={self._lhs}, rhs={self._rhs}, range={self._rng})"
         else:
             return f"Cond (type={self._ctype})"
 
@@ -108,6 +109,10 @@ class Cond ():
     @property
     def rhs (self) -> Optional[Index | String]:
         return self._rhs
+
+    @property
+    def range (self) -> Optional[tuple[int,int]]:
+        return self._rng
 
 class PtnSeq (argparse._AppendAction):
     """
@@ -134,8 +139,23 @@ def info (msg):
     print (f"info: {msg}")
 
 def handle_val (token: str) -> Index | String:
+    idx: int = -1
     if token.startswith ("M"):
-        return Index (IndexType.Match, int (token.strip ("M\[\]")))
+        midx: int = -1
+        mpidx = re.search (r'^M\[(\d+)\]', token)
+        if isinstance (mpidx, Match):
+            midx = int (mpidx.group (1))
+        else:
+            fatal ("Regex for M index failed!")
+        mmat = re.search (r'\:(\d+)$', token)
+
+        mmattype: MatchType = MatchType.NA
+
+        if mmat:
+            mmattype = MatchType.Num
+            idx = int (mmat.group (1))
+
+        return Index (IndexType.Match, midx, mmattype, idx)
     elif token.startswith ("P"):
         pidx: int = -1
         mpidx = re.search (r'^P\[(\d+)\]', token)
@@ -145,7 +165,6 @@ def handle_val (token: str) -> Index | String:
             fatal ("Regex for P index failed!")
         pmat = re.search (r'\:(\d+|\&\&|\|\|)$', token)
 
-        idx: int = -1
         pmattype: MatchType = MatchType.NA
 
         if pmat and pmat.group (1) == '&&':
@@ -162,7 +181,7 @@ def handle_val (token: str) -> Index | String:
     else:
         return String (token.strip ("\"'"))
 
-def handle_cond (lhs: str, opt: str, rhs: str) -> Cond:
+def handle_cond (lhs: str, opt: str, rhs: str, rng: Optional[tuple[int, int]]) -> Cond:
     nlhs = handle_val (lhs)
     nrhs = handle_val (rhs)
     ctype: CondType = CondType.Err
@@ -173,13 +192,14 @@ def handle_cond (lhs: str, opt: str, rhs: str) -> Cond:
     else:
         fatal (f"Unknown conditional operations: {opt}")
 
-    return Cond (ctype, nlhs, nrhs)
+    return Cond (ctype, nlhs, nrhs, rng)
 
 def parse_cond (cond: str, c: int) -> Cond: # type: ignore[return]
     # FIXME 'string opt string' is possible
-    rstatm = re.compile ('^\s*(?:skip|(?:[PM]\[\d+\](?:\:\d+|\:&&|\:\|\|){0,1}|["\']\w*["\'])\s*[\!=->][=>]\s*(?:[PM]\[\d+\](?:\:\d+|\:&&|\:\|\|){0,1}|["\']\w*["\']))\s*$')
+    rstatm = re.compile ('^\s*(?:skip|>>|(?:(?:\d+\:|\d+-\d+\:){0,1}[PM]\[\d+\](?:\:\d+|\:&&|\:\|\|){0,1}|["\']\w*["\'])\s*[\!=->][=>]\s*(?:[PM]\[\d+\](?:\:\d+|\:&&|\:\|\|){0,1}|["\']\w*["\']))\s*$')
     rtokens = re.compile ('[PM]\[\d+\](?:\:\d+|\:&&|\:\|\|){0,1}|[\!=]=|>>|skip|["\']\w*["\']')
     rids = re.compile('[MP]\[\d+\]')
+    rcount = re.compile ('^(\d+)\:|^(\d+)-(\d+)\:')
 
     if not re.fullmatch (rstatm, cond):
         fatal (f"Condtional {c} uses incorrect syntax!")
@@ -189,7 +209,17 @@ def parse_cond (cond: str, c: int) -> Cond: # type: ignore[return]
         if toks[0] in ['>>','skip']:
             return Cond (CondType.Skip, None, None)
         elif len (toks) == 3:
-            return handle_cond (toks[0], toks[1], toks[2])
+            cntmat = re.findall (rcount, cond)
+            rng: tuple[int, int] = (0,0)
+            if cntmat[0]:
+                if cntmat[0][1]:
+                    rng = (int (cntmat[0][1]), int (cntmat[0][2]))
+                elif cntmat[0][0]:
+                    rng = (0, int (cntmat[0][0]))
+                else:
+                    fatal (f"Invalid condition count given!")
+
+            return handle_cond (toks[0], toks[1], toks[2], rng)
         else:
             fatal (f"Conditional {c} is malformed!")
     else:
@@ -197,15 +227,20 @@ def parse_cond (cond: str, c: int) -> Cond: # type: ignore[return]
 
 def eval_id (ids: Index | String, smatch: Sequence[str], prev: list) -> tuple[list, MatchType, int]: # type: ignore[return]
     if isinstance (ids, Index):
-        if ids.optype == MatchType.NA:
-            return ([smatch[ids.index]], MatchType.NA, 0)
+        if ids.type == IndexType.Match:
+            if ids.optype == MatchType.NA:
+                return ([smatch[ids.index]], MatchType.NA, 0)
+            # TODO handle other matching types, maybe only NUM
         else:
-            # XXX is it always the case that a match only returns 1 tuple or 1 string?
-            try:
-                sp = [i[0][ids.index] for i in prev]
-                return (sp, ids.optype, ids.opidx)
-            except IndexError as e:
-                fatal (f"for P[{ids.index}] -> {e}")
+            if ids.optype == MatchType.NA:
+                return ([smatch[ids.index]], MatchType.NA, 0)
+            else:
+                try:
+                    # re.findall returns either a list of strings, or lists of tuples of strings, aahhhh
+                    sp = [i[0][ids.index] if isinstance (i[0], tuple) else i[ids.index] for i in prev]
+                    return (sp, ids.optype, ids.opidx)
+                except IndexError as e:
+                    fatal (f"for P[{ids.index}] -> {e}")
     elif isinstance (ids, String):
         return ([ids.value], MatchType.NA, 0)
 
@@ -290,13 +325,18 @@ if __name__ == '__main__':
         found: bool = False
         failed: bool = False
         matches: List[list] = []
+        rng: Optional[tuple[int, int]] = c.range
+        lcnt: int = 0
         reg = re.compile (p)
         for line in tp:
             res = re.findall (reg, line)
             if res:
+                print (lcnt)
+                if rng and not (rng[0] <= lcnt <= rng[1]):
+                    break
+                lcnt += 1
                 found = True
                 matches.append (res)
-                print (c)
                 if not eval_cond (c, res, prev):
                     error (f"Condition failed for pattern: \"{p}\"!")
                     failed = True
